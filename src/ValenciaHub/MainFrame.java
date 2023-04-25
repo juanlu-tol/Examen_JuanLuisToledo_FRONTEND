@@ -1,3 +1,4 @@
+// Juan Luis Toledo Gómez
 package ValenciaHub;
 import ValenciaHubBackEnd_Hub.*;
 /*
@@ -18,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.*;
-import java.nio.file.Files;
 
 public class MainFrame extends JFrame {
     private JTextField campo_ID;
@@ -44,31 +44,33 @@ public class MainFrame extends JFrame {
     private JRadioButton hub1RadioButton;
     private JRadioButton hub2RadioButton;
     private JRadioButton hub3RadioButton;
+    private JButton método1ExamenButton;
     private JButton hub1Button;
 
 
     puerto p1;
-    public MainFrame(){
+
+    public MainFrame() {
         setContentPane(mainPanel);
         setTitle("Gestión de contenedores");
-        setSize(800,700);
+        setSize(800, 700);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        mainPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         hub1RadioButton.setSelected(true);
-        paisComboBox.addItem((String)"España");
-        paisComboBox.addItem((String)"Alemania");
-        paisComboBox.addItem((String)"Francia");
-        paisComboBox.addItem((String)"Irlanda");
-        paisComboBox.addItem((String)"Arbacete");
-        paisComboBox.addItem((String)"Murcia");
+        paisComboBox.addItem((String) "España");
+        paisComboBox.addItem((String) "Alemania");
+        paisComboBox.addItem((String) "Francia");
+        paisComboBox.addItem((String) "Irlanda");
+        paisComboBox.addItem((String) "Arbacete");
+        paisComboBox.addItem((String) "Murcia");
 
-        cuantosComboBox.addItem((String)"España");
-        cuantosComboBox.addItem((String)"Alemania");
-        cuantosComboBox.addItem((String)"Francia");
-        cuantosComboBox.addItem((String)"Irlanda");
-        cuantosComboBox.addItem((String)"Arbacete");
-        cuantosComboBox.addItem((String)"Murcia");
+        cuantosComboBox.addItem((String) "España");
+        cuantosComboBox.addItem((String) "Alemania");
+        cuantosComboBox.addItem((String) "Francia");
+        cuantosComboBox.addItem((String) "Irlanda");
+        cuantosComboBox.addItem((String) "Arbacete");
+        cuantosComboBox.addItem((String) "Murcia");
         JMenuBar menuBar = new JMenuBar();
         JMenu archivoMenu = new JMenu("Archivo");
         JMenuItem acercaDe = new JMenuItem("Acerca de");
@@ -95,14 +97,14 @@ public class MainFrame extends JFrame {
         acercaDe.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"Creado por: \nAlejandro Romero Lorenzo\nAlejandro González Cortijo\nRicardo David Villamar Monroy\nCarlos Martínez Pérez\nJuan Luis Toledo Gómez\n\nFundamentos de Programación II\nEscuela Superior de Ingeniería Informática\nUniversidad de Castilla-La Mancha");
+                JOptionPane.showMessageDialog(null, "Creado por: \nAlejandro Romero Lorenzo\nAlejandro González Cortijo\nRicardo David Villamar Monroy\nCarlos Martínez Pérez\nJuan Luis Toledo Gómez\n\nFundamentos de Programación II\nEscuela Superior de Ingeniería Informática\nUniversidad de Castilla-La Mancha");
             }
         });
         //AL PRESIONAR SALIR EN EL MENÚ
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            System.exit(0);
+                System.exit(0);
             }
         });
         //AL PRESIONAR BORRAR EN EL MENÚ
@@ -124,23 +126,20 @@ public class MainFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //comprobación y set prioridad
                 int prioridad;
-                if(a1RadioButton.isSelected()){
-                    prioridad=1;
-                }
-                else if(a2RadioButton.isSelected()){
-                    prioridad=2;
-                }
-                else prioridad=3;
+                if (a1RadioButton.isSelected()) {
+                    prioridad = 1;
+                } else if (a2RadioButton.isSelected()) {
+                    prioridad = 2;
+                } else prioridad = 3;
 
                 int id = Integer.parseInt(campo_ID.getText());
                 int peso = Integer.parseInt(campo_Peso.getText());
-                String s = (String)paisComboBox.getSelectedItem();
+                String s = (String) paisComboBox.getSelectedItem();
                 contenedor aux = new contenedor(id, peso, prioridad, s, campo_Desc.getText(), campo_Remitente.getText(), campo_Receptora.getText(), inspeccionadoEnAduanasCheckBox.isSelected());
 
-                if(p1.apilarContenedor(aux, hubSelected())){
+                if (p1.apilarContenedor(aux, hubSelected())) {
                     JOptionPane.showMessageDialog(null, "Se ha apilado el contenedor correctamente");
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(null, "El hub está lleno");
                 }
                 FileOutputStream fos = null;
@@ -177,7 +176,7 @@ public class MainFrame extends JFrame {
                     // si aparece un error se muestra en pantalla el tipo de error
                     ex.printStackTrace();
                 }
-                JOptionPane.showMessageDialog(null,"Contenedor desapilado correctamente");
+                JOptionPane.showMessageDialog(null, "Contenedor desapilado correctamente");
                 mostrarPlanoDelHubTextArea.setText(p1.toString(hubSelected()));
             }
 
@@ -187,10 +186,9 @@ public class MainFrame extends JFrame {
         a1RadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (a1RadioButton.isSelected()==false){
+                if (a1RadioButton.isSelected() == false) {
                     a1RadioButton.setSelected(true);
-                }
-                else {
+                } else {
                     a2RadioButton.setSelected(false);
                     a3RadioButton.setSelected(false);
                     //JOptionPane.showMessageDialog(null, "Has presionado Prioridad 1");
@@ -203,10 +201,9 @@ public class MainFrame extends JFrame {
         a2RadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (a2RadioButton.isSelected()==false){
+                if (a2RadioButton.isSelected() == false) {
                     a2RadioButton.setSelected(true);
-                }
-                else {
+                } else {
                     a1RadioButton.setSelected(false);
                     a3RadioButton.setSelected(false);
                     //JOptionPane.showMessageDialog(null, "Has presionado Prioridad 2");
@@ -219,10 +216,9 @@ public class MainFrame extends JFrame {
         a3RadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (a3RadioButton.isSelected()==false){
+                if (a3RadioButton.isSelected() == false) {
                     a3RadioButton.setSelected(true);
-                }
-                else {
+                } else {
                     a1RadioButton.setSelected(false);
                     a2RadioButton.setSelected(false);
                     //JOptionPane.showMessageDialog(null, "Has presionado Prioridad 3");
@@ -247,8 +243,8 @@ public class MainFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String s = (String)paisComboBox.getSelectedItem();
-                JOptionPane.showMessageDialog(null,"Hay "+p1.contadorPaises(hubSelected(), s)+" contenedores que provienen de "+s);
+                String s = (String) paisComboBox.getSelectedItem();
+                JOptionPane.showMessageDialog(null, "Hay " + p1.contadorPaises(hubSelected(), s) + " contenedores que provienen de " + s);
             }
         });
 
@@ -258,7 +254,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int aux=Integer.parseInt(IDContenedorTextField.getText());
+                int aux = Integer.parseInt(IDContenedorTextField.getText());
 
 
                 MainFrame2 test2 = new MainFrame2(p1.datosAPartirDeId(hubSelected(), aux));
@@ -269,10 +265,9 @@ public class MainFrame extends JFrame {
         hub1RadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (hub1RadioButton.isSelected()==false){
+                if (hub1RadioButton.isSelected() == false) {
                     hub1RadioButton.setSelected(true);
-                }
-                else {
+                } else {
                     hub2RadioButton.setSelected(false);
                     hub3RadioButton.setSelected(false);
                 }
@@ -285,10 +280,9 @@ public class MainFrame extends JFrame {
         hub2RadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (hub2RadioButton.isSelected()==false){
+                if (hub2RadioButton.isSelected() == false) {
                     hub2RadioButton.setSelected(true);
-                }
-                else {
+                } else {
                     hub1RadioButton.setSelected(false);
                     hub3RadioButton.setSelected(false);
                 }
@@ -300,10 +294,9 @@ public class MainFrame extends JFrame {
         hub3RadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (hub3RadioButton.isSelected()==false){
+                if (hub3RadioButton.isSelected() == false) {
                     hub3RadioButton.setSelected(true);
-                }
-                else {
+                } else {
                     hub1RadioButton.setSelected(false);
                     hub2RadioButton.setSelected(false);
                 }
@@ -316,7 +309,7 @@ public class MainFrame extends JFrame {
             @Override
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
-                if(númeroDeColumnaTextField.getText().equals("Número de columna")){
+                if (númeroDeColumnaTextField.getText().equals("Número de columna")) {
                     númeroDeColumnaTextField.setText("");
                 }
 
@@ -325,7 +318,7 @@ public class MainFrame extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                if(númeroDeColumnaTextField.getText().equals("")){
+                if (númeroDeColumnaTextField.getText().equals("")) {
                     númeroDeColumnaTextField.setText("Número de columna");
                 }
             }
@@ -336,7 +329,7 @@ public class MainFrame extends JFrame {
             @Override
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
-                if(IDContenedorTextField.getText().equals("ID Contenedor")){
+                if (IDContenedorTextField.getText().equals("ID Contenedor")) {
                     IDContenedorTextField.setText("");
                 }
             }
@@ -344,28 +337,32 @@ public class MainFrame extends JFrame {
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                if(IDContenedorTextField.getText().equals("")){
+                if (IDContenedorTextField.getText().equals("")) {
                     IDContenedorTextField.setText("ID Contenedor");
                 }
             }
         });
 
 
-    }
-    private int hubSelected(){
-        int hubNumber;
-        if(hub1RadioButton.isSelected()){
-            hubNumber=0;
-        }
-        else if(hub2RadioButton.isSelected()){
-            hubNumber=1;
-        }
-        else hubNumber=2;
+        private int hubSelected () {
+            int hubNumber;
+            if (hub1RadioButton.isSelected()) {
+                hubNumber = 0;
+            } else if (hub2RadioButton.isSelected()) {
+                hubNumber = 1;
+            } else hubNumber = 2;
 
-        return hubNumber;
-    }
-    public static void main(String[] args) {
-        MainFrame test = new MainFrame();
-        
+            return hubNumber;
+        }
+        public static void main (String[]args){
+            MainFrame test = new MainFrame();
+
+        }
+        método1ExamenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OptionPane.showMessageDialog(null, p1.contenedoreselegibles(1, 1));
+            }
+        });
     }
 }
